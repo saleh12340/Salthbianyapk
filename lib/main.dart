@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:convert';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,13 +40,11 @@ class EzziGroceryApp extends StatelessWidget {
   }
 }
 
-// ==================== Provider & State ====================
 class GroceryProvider extends ChangeNotifier {
   final SharedPreferences _prefs;
   GroceryProvider(this._prefs);
 }
 
-// ==================== Main Navigation Screen ====================
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
 
@@ -128,7 +125,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   }
 }
 
-// ==================== Home Screen ====================
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -139,9 +135,9 @@ class HomeScreen extends StatelessWidget {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFFE2F0E5), // أخضر فاتح ناعم أعلى
-              Color(0xFFFCF7EC), // أصفر ناعم دافئ أوسط
-              Color(0xFFFFFFFF), // أبيض أسفل
+              Color(0xFFE2F0E5),
+              Color(0xFFFCF7EC),
+              Color(0xFFFFFFFF),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -155,7 +151,6 @@ class HomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 8),
-                // عنوان التطبيق
                 const Text(
                   'بقالة العزي للمواد الغذائية',
                   style: TextStyle(
@@ -165,13 +160,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-
-                // رسمة توضيحية لتاجر العزي والمنتجات
                 _buildIllustrationBanner(),
-
                 const SizedBox(height: 20),
-
-                // عبارات الترحيب
                 const Text(
                   'مرحباً بكم في بقالتكم المفضلة!',
                   style: TextStyle(
@@ -190,10 +180,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-
                 const SizedBox(height: 24),
-
-                // شبكة البطاقات والأزرار الرئيسية
                 GridView.count(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -208,7 +195,7 @@ class HomeScreen extends StatelessWidget {
                       iconData: Icons.shopping_cart_checkout_rounded,
                       bgColor: const Color(0xFFD4A338),
                       textColor: Colors.white,
-                      onTap: () => _navigateTo(context, 'التسوق الفوري'),
+                      onTap: () {},
                     ),
                     _buildFeatureCard(
                       context,
@@ -216,7 +203,7 @@ class HomeScreen extends StatelessWidget {
                       iconData: Icons.bar_chart_rounded,
                       bgColor: const Color(0xFFD4A338),
                       textColor: Colors.white,
-                      onTap: () => _navigateTo(context, 'تقارير المبيعات والمخزون'),
+                      onTap: () {},
                     ),
                     _buildFeatureCard(
                       context,
@@ -224,7 +211,7 @@ class HomeScreen extends StatelessWidget {
                       iconData: Icons.handshake_rounded,
                       bgColor: const Color(0xFF2E7D32),
                       textColor: Colors.white,
-                      onTap: () => _navigateTo(context, 'خدمات كاش ونقد'),
+                      onTap: () {},
                     ),
                     _buildFeatureCard(
                       context,
@@ -232,7 +219,7 @@ class HomeScreen extends StatelessWidget {
                       iconData: Icons.menu_book_rounded,
                       bgColor: const Color(0xFF1B5E20),
                       textColor: Colors.white,
-                      onTap: () => _navigateTo(context, 'دفتر الحسابات'),
+                      onTap: () {},
                     ),
                     _buildFeatureCard(
                       context,
@@ -241,7 +228,7 @@ class HomeScreen extends StatelessWidget {
                       bgColor: Colors.white,
                       textColor: const Color(0xFF1E293B),
                       isLight: true,
-                      onTap: () => _navigateTo(context, 'طباعة الفواتير الحرارية'),
+                      onTap: () {},
                     ),
                     _buildFeatureCard(
                       context,
@@ -250,14 +237,11 @@ class HomeScreen extends StatelessWidget {
                       bgColor: Colors.white,
                       textColor: const Color(0xFF1E293B),
                       isLight: true,
-                      onTap: () => _navigateTo(context, 'تقارير PDF الشهرية'),
+                      onTap: () {},
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 20),
-
-                // شريط معلومات الإصدار
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
@@ -278,7 +262,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // الرمز التوضيحي للتاجر وبضائع البقالة
   Widget _buildIllustrationBanner() {
     return Container(
       height: 120,
@@ -293,7 +276,6 @@ class HomeScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // رسمة سلة التمور والعسل
               Container(
                 width: 60,
                 height: 60,
@@ -304,7 +286,6 @@ class HomeScreen extends StatelessWidget {
                 child: const Icon(Icons.local_grocery_store, size: 32, color: Color(0xFFD4A338)),
               ),
               const SizedBox(width: 15),
-              // أيقونة البائع الشخصية
               Container(
                 width: 85,
                 height: 85,
@@ -326,7 +307,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 15),
-              // جنبية ونخيل التمر
               Container(
                 width: 60,
                 height: 60,
@@ -343,7 +323,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // بناء أزرار الميزات الرئيسية
   Widget _buildFeatureCard(
     BuildContext context, {
     required String title,
@@ -399,22 +378,10 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
-  void _navigateTo(BuildContext context, String title) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('جاري فتح: $title...'),
-        duration: const Duration(seconds: 1),
-        backgroundColor: const Color(0xFF1B5E20),
-      ),
-    );
-  }
 }
 
-// ==================== Screens Placeholders ====================
 class OrdersScreen extends StatelessWidget {
   const OrdersScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -426,7 +393,6 @@ class OrdersScreen extends StatelessWidget {
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -438,7 +404,6 @@ class AccountScreen extends StatelessWidget {
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
