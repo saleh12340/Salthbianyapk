@@ -13,11 +13,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Java Development Kit (JDK 17)
+      - name: Set up Java Development Kit (JDK 11)
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '11'
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
@@ -26,11 +26,12 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Create Complete Android Project
+      - name: Create Clean Android Project
         run: |
           mkdir -p /tmp/backup
           cp pubspec.yaml /tmp/backup/pubspec.yaml
           cp -r lib /tmp/backup/lib
+          rm -rf android
           flutter create . --org com.ezzi.grocery --project-name ezzi_grocery --platforms android
           cp /tmp/backup/pubspec.yaml ./pubspec.yaml
           cp -r /tmp/backup/lib ./
@@ -39,7 +40,7 @@ jobs:
         run: flutter pub get
 
       - name: Build APK
-        run: flutter build apk --debug --no-tree-shake-icons
+        run: flutter build apk --debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
